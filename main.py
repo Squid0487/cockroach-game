@@ -1,7 +1,7 @@
 import pygame
 import random
 
-
+#initialize
 pygame.init()
 pygame.font.init()
 SCREEN = pygame.display.set_mode((640,480))
@@ -24,10 +24,12 @@ class Bar:
     def __init__(self,x,y):
         self.x = x
         self.y = y
-    
+        
+    #randomize y position
     def height(self):
         self.y = random.randint(240,400)
-    
+        
+    #move left by 1
     def move(self):
         if (self.x <= -60):
             self.x = 750 
@@ -35,13 +37,14 @@ class Bar:
         self.x -= 1
     
     def draw_bar(self,i,j,k):
+        #draw lower bar
         pygame.draw.rect(SCREEN, (i,j,k), (self.x, self.y, 60, 240))
+        #draw upper bar
         pygame.draw.rect(SCREEN, (i,j,k), (self.x, self.y - 400, 60, 240))
 
 
 
 class Player:
-    #top left corner = (0,0)
     def __init__(self,x,y):
         self.x = x
         self.y = y
@@ -77,20 +80,24 @@ class Text:
     def __init__(self):
         self.x = cockroachSize/4
         self.y = cockroachSize/4
-        self.n = 0
+        self.n = 0        # n = current score of the player
 
+    #increse score by 1
     def change(self):
         self.n+=1
 
+    #reset score
     def reset(self):
         self.n = 0
 
+    #update score
     def draw(self,i,j,k):
         text = font.render("Score: "+ str(self.n), True, (i,j,k))
         SCREEN.blit(text, (self.x,self.y))
 
 
 def touches(player,bar):
+    #if player touches bars or the boundaries, 3*cockroachSize/4 and cockroachSize/4 are variable added to adjust effective intersections of the bars and the player
     if (player.x >= bar.x-3*cockroachSize/4 and player.x <= bar.x+60+cockroachSize/4 and 
         ((player.y >= bar.y-3*cockroachSize/4 and player.y <= bar.y+240) or
         (player.y >= bar.y-400 and player.y <= bar.y-160-cockroachSize/4))):
@@ -103,11 +110,11 @@ def touches(player,bar):
 
 def gamestart(player, bar1, bar2, bar3):
 
-    #create player
+    #reset player
     player.x = 200
     player.y = 200
 
-    #create bars
+    #reset bars
     bar1.x = 640 
     bar1.y = 240    #Bar(640, 240)
     bar2.x = 910
@@ -223,5 +230,6 @@ def main ():
 
 if __name__ == "__main__":
     main()
+
 
 
