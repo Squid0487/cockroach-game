@@ -155,6 +155,11 @@ def main ():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
+                
+            #ESC to quit
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                return 
             
             #check key press(space)
             if (event.type == pygame.KEYDOWN):
@@ -230,6 +235,7 @@ def main ():
 
 if __name__ == "__main__":
     main()
+
 
 
 
